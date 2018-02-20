@@ -6,7 +6,7 @@ using System;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace DiscordBotCore
+namespace DiscordBot
 {
     public class Bot
     {

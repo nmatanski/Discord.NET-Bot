@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DiscordBotCore.Modules
+namespace Bot.Modules.cs
 {
     public class SignUp : ModuleBase<SocketCommandContext>
     {

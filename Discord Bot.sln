@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discord Bot", "Discord Bot"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBot", "DiscordBot\DiscordBot.csproj", "{482214E6-7929-4BC4-9E9D-3AC31CCB2DD9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bot.Modules.cs", "Bot.Modules.cs\Bot.Modules.cs.csproj", "{FB5C288C-ACCD-4110-842C-604F16149843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBot.Modules", "DiscordBot.Modules\DiscordBot.Modules.csproj", "{FB5C288C-ACCD-4110-842C-604F16149843}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -28,7 +28,7 @@ namespace DiscordBot
 
             services = new ServiceCollection().AddSingleton(client).AddSingleton(commands).BuildServiceProvider();
 
-            string botToken = ""; ///TODO: token
+            string botToken = "NDA0NjcyNTc2NjM2MzIxODAy.DW3ijw.ntDVQ_R73XwExVc7hLp2tlEzqks"; ///TODO: token
 
             client.Log += Log;
 

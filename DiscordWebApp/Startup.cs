@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using DiscordWebApp.Data;
 using DiscordWebApp.Models;
 using DiscordWebApp.Services;
+using DAL.Database;
+using DAL.Database.Helpers;
 
 namespace DiscordWebApp
 {
@@ -26,16 +28,19 @@ namespace DiscordWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>()
+            //    .AddDefaultTokenProviders();
 
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+            //// Add application services.
+            //services.AddTransient<IEmailSender, EmailSender>();
 
+            //services.AddMvc();
+
+            services.AddEntityFrameworkSqlServer().AddDbContext<AppDbContext>();
             services.AddMvc();
         }
 
@@ -63,6 +68,12 @@ namespace DiscordWebApp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
+                DbInitializer.Initialize(context);
+            }
         }
     }
 }

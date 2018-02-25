@@ -13,6 +13,8 @@ namespace DAL.Database
             //connection = DBConnections.GetAzureConnection();
         }
 
+        public DbSet<UserService.Domain.Models.User> Users { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(connection);

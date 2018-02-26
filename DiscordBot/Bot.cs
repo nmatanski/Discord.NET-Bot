@@ -28,7 +28,7 @@ namespace DiscordBot
 
             services = new ServiceCollection().AddSingleton(client).AddSingleton(commands).BuildServiceProvider();
 
-            string botToken = "NDA0NjcyNTc2NjM2MzIxODAy.DW3ijw.ntDVQ_R73XwExVc7hLp2tlEzqks"; ///TODO: token
+            string botToken = "NDE3MzUzMjIzNDY1MjA1NzYx.DXRyZw.ZBYc06LH_TnzEXHlE-TmzBqpKtM"; ///TODO: token
 
             client.Log += Log;
 
@@ -65,7 +65,7 @@ namespace DiscordBot
 
             int argPos = 0;
 
-            if (message.HasStringPrefix("amms#", ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))
+            if (message.HasStringPrefix("!", ref argPos) || message.HasMentionPrefix(client.CurrentUser, ref argPos))
             {
                 var context = new SocketCommandContext(client, message);
 

@@ -11,5 +11,6 @@ namespace UserService.Domain
         Task<User> GetUserByIdAsync(string id);
         Task<User> GetUserByEmailAsync(string email);
         Task<List<User>> GetAllUsersAsync();
+        Task<User> GetUserByUsernameAsync(string username);
     }
 }

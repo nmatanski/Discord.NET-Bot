@@ -32,9 +32,9 @@ namespace DAL.Database.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<bool>("EmailConfirmed");
-
                     b.Property<string>("ImgUrl");
+
+                    b.Property<bool>("IsEmailConfirmed");
 
                     b.Property<string>("Password");
 

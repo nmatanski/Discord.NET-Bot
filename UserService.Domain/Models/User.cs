@@ -11,6 +11,13 @@ namespace UserService.Domain.Models
         private CustomId _id;
 
         public User() { }
+
+        public User(string email, string password)
+        {
+            Email = email;
+            Password = password;
+        }
+
         public User(string Username, CustomId id = null, string imgUrl = null,
             DateTime? dateCreated = null, DateTime? dateChanged = null)
         {
@@ -28,7 +35,7 @@ namespace UserService.Domain.Models
             Password = password;
             UserRole = role;
             ValidationCode = validationCode;
-            EmailConfirmed = isEmailConfirmed;
+            IsEmailConfirmed = isEmailConfirmed;
             DateCreated = DateTime.Now;
             ImgUrl = imgUrl ?? string.Empty;
             DateChanged = dateChanged ?? DateTime.MinValue;
@@ -54,7 +61,7 @@ namespace UserService.Domain.Models
 
         public string ValidationCode { get; private set; }
 
-        public bool EmailConfirmed { get; private set; }
+        public bool IsEmailConfirmed { get; private set; }
 
         public DateTime? DateCreated { get; private set; }
 

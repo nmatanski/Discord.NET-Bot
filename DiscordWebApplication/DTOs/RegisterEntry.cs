@@ -9,7 +9,7 @@ namespace DiscordWebApplication.DTOs
     public class RegisterEntry
     {
         [Required]
-        public string Username { get; set; }
+        public string DiscordUsername { get; set; }
 
         [Required]
         public string Password { get; set; }

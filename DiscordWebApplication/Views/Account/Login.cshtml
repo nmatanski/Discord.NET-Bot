@@ -1,0 +1,68 @@
+﻿@model DiscordWebApplication.DTOs.LoginEntry
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isWrong = ViewData["WrongLogin"] != null;
+}
+
+
+<section id="viewLogin" style="text-align:center;">
+    <h1 class="theMonkiesAteMySoul" style="color: #c0a16b">
+        <b>Login</b>
+    </h1>
+    <h4 class="theMonkiesAteMySoul" style="color: #c0a16b">
+        <b>Use a local account to log in</b>
+    </h4>
+    <hr>
+    <br>
+    @if (isWrong)
+    {
+        <p class="alert">@ViewData["WrongLogin"]</p>
+    }
+    <br>
+
+    <div class="login-form-1">
+        <div id="login-form" class="text-left">
+            <div class="main-login-form">
+                <form method="post">
+                    <div class="form-container">
+                        <!--Username-->
+                        <div class="form-group">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input type="text" placeholder="Email" asp-for="Email" class="form-control">
+                        </div>
+                        <!--Password-->
+                        <div class="form-group">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <input type="password" placeholder="Password" asp-for="Password" class="form-control">
+                        </div>
+                        <!--Button GO-->
+                        <div class="form-group">
+                            <input type="submit" class="login-button" value="GO" [disabled]="!reactiveForm.valid" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <h3>
+        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user.</a>
+        @*||
+            <a asp-action="ForgotPassword">Forgot your password?</a>*@
+        @*||
+            <a routerLink="/forgotten-password">Use another service to log in</a>*@
+    </h3>
+    <hr>
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

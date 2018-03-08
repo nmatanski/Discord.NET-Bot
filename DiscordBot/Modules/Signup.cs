@@ -15,6 +15,16 @@ namespace DiscordBot.Modules
         [Command("signup")]
         public async Task SignUpAsync()
         {
+            var tempUser = await userManager.GetUserByUsernameAsync(Context.User.Username);
+            if (tempUser != null)
+            {
+                await ReplyAsync($"{Context.User.Mention}, you've already signed up with this account.");
+                if(tempUser.Email.Equals("@"))
+                    await ReplyAsync($"Please confirm your email address.");
+
+                return;
+            }
+
             await userManager.RegisterAsync(new User(Context.User.Username, "@", "", Role.User));
 
             await ReplyAsync($"{Context.User.Mention}, you've been added to the DB!");

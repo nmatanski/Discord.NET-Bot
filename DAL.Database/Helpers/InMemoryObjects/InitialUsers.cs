@@ -26,7 +26,7 @@ namespace DAL.Database.Helpers.InMemoryObjects
             {
                 new User(
                     "Admin",
-                    "nmatanski95@abv.bg",
+                    "", ///TODO: Initial User/Admin Email (Seed)
                     HashUtils.CreateHashCode("1"),
                     Role.Admin,
                     HashUtils.CreateReferralCode(),

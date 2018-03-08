@@ -36,7 +36,7 @@ namespace NotificationService
                 {
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential("", "") ///TODO: Outlook credentials here
-                };
+                }; ///TODO
 
                 MailMessage mailMessage = new MailMessage
                 {

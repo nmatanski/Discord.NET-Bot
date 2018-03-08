@@ -12,7 +12,7 @@ namespace DiscordBot.Modules
         [Command("ping")]
         public async Task PingAsync()
         {
-            await ReplyAsync($"{Context.User.Mention} Pong! /{(Context.Client as DiscordSocketClient).Latency}ms :ping_pong:");
+            await ReplyAsync($"{Context.User.Mention} Pong! :ping_pong: ({(Context.Client as DiscordSocketClient).Latency}ms)");
         }
     }
 }

@@ -1,0 +1,70 @@
+﻿@model DiscordWebApplication.DTOs.RegisterEntry
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool isWrong = ViewData["WrongLogin"] != null;
+    string wrongRegister = !isWrong ? (string)ViewData["WrongRegister"] : "";
+}
+
+
+<section id="viewRegister" style="text-align:center;">
+    <h1 style="color: #c0a16b">
+        <b>Register</b>
+    </h1>
+    <h4 style="color: #c0a16b">
+        <b>Create a new account</b>
+    </h4>
+    <hr />
+    <br>
+
+    <p class="alert">@wrongRegister</p>
+    <br>
+
+    <div class="register-form-1">
+
+        <div id="register-form" class="text-left">
+            <div class="main-register-form">
+                <form method="post">
+                    <div class="form-container">
+                        <!--Username-->
+                        <div class="form-group">
+                            <span asp-validation-for="DiscordUsername" class="text-danger"></span>
+                            <input type="text" placeholder="Existing Discord User" asp-for="DiscordUsername" class="form-control">
+                        </div>
+                        <!--Password-->
+                        <div class="form-group">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input type="email" placeholder="Email" asp-for="Email" class="form-control">
+                        </div>
+                        <!--Password-->
+                        <div class="form-group">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <input type="password" placeholder="Password" asp-for="Password" class="form-control">
+                        </div>
+                        <!--Button GO-->
+                        <div class="form-group">
+                            <input type="submit" class="register-button" value="GO" [disabled]="!reactiveForm.valid" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+
+
+    <hr>
+    <h3>
+        Already have an account? Click
+        <a asp-action="Login"> here!</a>
+    </h3>
+</section>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

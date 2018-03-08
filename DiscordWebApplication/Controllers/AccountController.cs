@@ -60,11 +60,11 @@ namespace DiscordWebApplication.Controllers
                 var user = await _userManager.GetUserByEmailAsync(entry.Email);
                 if (user != null)
                 {
-                    if (!user.IsEmailConfirmed)
-                    {
-                        ViewData["WrongLogin"] = "Email is not confirmed!";
-                        return View(entry);
-                    }
+                    //if (!user.IsEmailConfirmed)
+                    //{
+                    //    ViewData["WrongLogin"] = "Email is not confirmed!";
+                    //    return View(entry);
+                    //}
                     if (!HashUtils.VerifyPassword(entry.Password, user.Password))
                     {
                         /* Don't reveal which one is incorrect.  */
@@ -74,8 +74,8 @@ namespace DiscordWebApplication.Controllers
                     }
                 }
                 
-                HttpContext.Session.SetObjectAsJson<string>("UserId", user.Id);
-                HttpContext.Session.SetObjectAsJson<string>("UserName", user.Username);
+                HttpContext.Session.SetObjectAsJson("UserId", user.Id);
+                HttpContext.Session.SetObjectAsJson("UserName", user.Username);
                 HttpContext.Session.SetObjectAsJson("TypeOfUser", user.UserRole);
             }
             catch (Exception ex)
@@ -90,23 +90,38 @@ namespace DiscordWebApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterEntry entry)
         {
-            if (!entry.Email.Contains("@gmail.com"))
-            {
-                ViewData["WrongRegister"] = "Only gmail.com accounts are allowed!";
-                return View(entry);
-            }
+            //if (!entry.Email.Contains("@gmail.com") || !entry.Email.Contains("@outlook.com"))
+            //{
+            //    ViewData["WrongRegister"] = "Only gmail.com accounts are allowed!";
+            //    return View(entry);
+            //}
 
             try
             {
-                User user = await _userManager.GetUserByEmailAsync(entry.Email);
-                if (user != null)
+                //User user = await _userManager.GetUserByEmailAsync(entry.Email);
+                //if (user != null)
+                //{
+                //    ViewData["WrongRegister"] = "Email already taken!";
+                //    return View(entry);
+                //}
+                if (null == await _userManager.GetUserByUsernameAsync(entry.DiscordUsername))
                 {
-                    ViewData["WrongRegister"] = "Email already taken!";
+                    ViewData["WrongRegister"] = "You haven't signed up with this Discord user yet. Please type !signup in the Discord Server, where you're using the bot.";
                     return View(entry);
                 }
+                var tempEmail = (await _userManager.GetUserByUsernameAsync(entry.DiscordUsername)).Email;
+                if (!tempEmail[tempEmail.Length-1].Equals('@'))
+                {
+                    ViewData["WrongRegister"] = "You've already signed up with this Discord user.";
+                    return View(entry);
+                }
+
                 string password = HashUtils.CreateHashCode(entry.Password);
                 string validationCode = HashUtils.CreateReferralCode();
-                User newUser = new User(entry.Username, entry.Email, password, Role.User, validationCode, false);
+                User newUser = new User(entry.DiscordUsername, entry.Email, password, Role.User, validationCode, false);
+
+                _ctx.Users.Remove(_ctx.Users.FirstOrDefault(u => u.Username == entry.DiscordUsername));
+                _ctx.SaveChanges();
 
                 await _userManager.RegisterAsync(newUser);
                 await _notificationManager.SendConfirmationEmailAsync(newUser);

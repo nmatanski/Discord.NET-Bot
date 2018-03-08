@@ -14,4 +14,8 @@
     <ProjectReference Include="..\UserService\UserService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Modules\Admin Modules\" />
+  </ItemGroup>
+
 </Project>

@@ -1,20 +1,38 @@
-﻿@model IEnumerable<UserService.Domain.Models.User>
+﻿@using PagedList;
+@using PagedList.Core;
+
+@model IEnumerable<UserService.Domain.Models.User>
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var username = ViewData["UserName"];
+    var role = ViewData["Role"];
+    //var noPermissions = ViewBag["NoPermissions"] != null;
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (role.ToString() == "Administrator")
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<a asp-area="" asp-controller="Manage" asp-action="Index">Profile</a>
+@*@if (noPermissions)
+    {
+        <h3>@ViewBag["NoPermissions"]</h3>
+    }*@
+
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Username)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            @if (role.ToString() == "Administrator")
+            {
                 <th>
                     @Html.DisplayNameFor(model => model.ImgUrl)
                 </th>
@@ -24,9 +42,12 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Password)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserRole)
-                </th>
+            }
+            <th>
+                @Html.DisplayNameFor(model => model.UserRole)
+            </th>
+            @if (role.ToString() == "Administrator")
+            {
                 <th>
                     @Html.DisplayNameFor(model => model.ValidationCode)
                 </th>
@@ -39,45 +60,62 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DateChanged)
                 </th>
+            }
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImgUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserRole)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValidationCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsEmailConfirmed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateCreated)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateChanged)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                @if (role.ToString() == "Administrator")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ImgUrl)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserRole)
+                </td>
+                @if (role.ToString() == "Administrator")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ValidationCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsEmailConfirmed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateCreated)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateChanged)
+                    </td>
+                }
+                <td>
+                    @if (role.ToString() == "Administrator")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (role.ToString() == "Administrator")
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@*@PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, tbSearchTitle = ViewBag.TitleSearchBox }))*@
+

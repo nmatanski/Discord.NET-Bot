@@ -3,7 +3,6 @@ using CommonHelpers.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UserService.Domain.Models;
 
 namespace DAL.Database.Helpers.InMemoryObjects
@@ -25,10 +24,10 @@ namespace DAL.Database.Helpers.InMemoryObjects
             return new List<User>()
             {
                 new User(
-                    "Admin",
-                    "", ///TODO: Initial User/Admin Email (Seed)
+                    "Administrator",
+                    "", ///TODO: Initial User/Administrator Email (Seed)
                     HashUtils.CreateHashCode("1"),
-                    Role.Admin,
+                    Role.Administrator,
                     HashUtils.CreateReferralCode(),
                     true,
                     new CustomId(new Guid("fe3006d3-9e69-477f-ab96-638bc230a439"))

@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var username = ViewData["UserName"];
+    var role = ViewData["Role"];
 }
 
 <h2>Details</h2>
@@ -22,48 +25,54 @@
         <dd>
             @Html.DisplayFor(model => model.ImgUrl)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+        @if (role.ToString() == "Administrator")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+        }
         <dt>
             @Html.DisplayNameFor(model => model.UserRole)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.UserRole)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ValidationCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ValidationCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsEmailConfirmed)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsEmailConfirmed)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateChanged)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateChanged)
-        </dd>
+        @if (role.ToString() == "Administrator")
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.ValidationCode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ValidationCode)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsEmailConfirmed)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsEmailConfirmed)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateChanged)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateChanged)
+            </dd>
+        }
     </dl>
 </div>
 <div>

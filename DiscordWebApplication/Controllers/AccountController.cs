@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -77,8 +76,10 @@ namespace DiscordWebApplication.Controllers
                 HttpContext.Session.SetObjectAsJson("UserId", user.Id);
                 HttpContext.Session.SetObjectAsJson("UserName", user.Username);
                 HttpContext.Session.SetObjectAsJson("TypeOfUser", user.UserRole);
+
+                //SessionUserRole.UserRole = user.UserRole;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //await _logger.LogCustomExceptionAsync(ex, null);
                 return RedirectToAction("Error", "Home");
@@ -126,7 +127,7 @@ namespace DiscordWebApplication.Controllers
                 await _userManager.RegisterAsync(newUser);
                 await _notificationManager.SendConfirmationEmailAsync(newUser);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //await _logger.LogCustomExceptionAsync(ex, null);
                 return RedirectToAction("Error", "Home");
@@ -154,7 +155,7 @@ namespace DiscordWebApplication.Controllers
                 _ctx.Update(user);
                 await _ctx.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //await _logger.LogCustomExceptionAsync(ex, null);
                 return RedirectToAction("Error", "Home");
@@ -168,7 +169,7 @@ namespace DiscordWebApplication.Controllers
         {
             HttpContext.Session.SetObjectAsJson<string>("UserId", null);
             HttpContext.Session.SetObjectAsJson<string>("UserName", null);
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return View();
         }
 
 

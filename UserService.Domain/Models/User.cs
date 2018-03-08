@@ -1,8 +1,7 @@
 ﻿using CommonHelpers.Extensions;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace UserService.Domain.Models
 {
@@ -51,20 +50,26 @@ namespace UserService.Domain.Models
 
         public string Username { get; private set; }
 
+        [DisplayName("Avatar")]
         public string ImgUrl { get; private set; }
 
         public string Email { get; private set; }
 
         public string Password { get; private set; }
 
-        public Role UserRole { get; private set; }
+        [DisplayName("Role")]
+        public Role UserRole { get; set; }
 
+        [DisplayName("Validation Code")]
         public string ValidationCode { get; private set; }
 
+        [DisplayName("Email Confirmed")]
         public bool IsEmailConfirmed { get; private set; }
 
+        [DisplayName("Date Created")]
         public DateTime? DateCreated { get; private set; }
 
+        [DisplayName("Date Changed")]
         public DateTime? DateChanged { get; private set; }
 
     }

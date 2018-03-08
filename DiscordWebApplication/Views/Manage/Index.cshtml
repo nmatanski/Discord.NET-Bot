@@ -18,10 +18,10 @@
     }
 </style>
 <div style="text-align:center;">
-    <h1 style="color: #c0a16b">
+    <h1 style="color: #42f4b3">
         <b>Welcome back, @username @role</b>
     </h1>
-    <h4 style="color: #c0a16b">
+    <h4 style="color: #42f4b3">
         <b>This is your personal profile page</b>
     </h4>
     <hr>
@@ -30,38 +30,35 @@
             <ul>
                 @if (role.ToString() != "User"
 && role.ToString() != "Superuser"
-&& role.ToString() != "Admin")
+&& role.ToString() != "Administrator")
                 {
-                    <li> <a asp-area="" asp-controller="" asp-action="">User request</a></li>
-                    <li> <a asp-area="" asp-controller="" asp-action="">Superuser request</a></li>
+                    @*<li> <a asp-area="" asp-controller="" asp-action="">User request</a></li>
+                        <li> <a asp-area="" asp-controller="" asp-action="">Superuser request</a></li>*@
                 }
-                @if (role.ToString() == "Admin")
+                @if (role.ToString() == "Administrator")
                 {
-                    <li> <a asp-area="" asp-controller="" asp-action="">All Users</a></li>
-                    <li><a asp-area="" asp-controller="" asp-action="">All Exceptions</a></li>
+                    <li> <a asp-area="" asp-controller="Users" asp-action="Index">All Users</a></li>
+                    @*<li><a asp-area="" asp-controller="" asp-action="">All Exceptions</a></li>*@
                 }
-                <br />
                 @if (role.ToString() == "User")
                 {
-                    <li> <a asp-area="" asp-controller="ITGigs" asp-action="Create">Create new ITGig event</a></li>
+                    <li> <a asp-area="" asp-controller="Users" asp-action="Index">All Users</a></li>
 
                 }
                 @if (role.ToString() == "SuperUser")
                 {
-                    <li> <a asp-area="" asp-controller="Venues" asp-action="Create">Create new Venue</a></li>
-
+                    <li> <a asp-area="" asp-controller="Users" asp-action="Index">All Users</a></li>
                 }
-                <li> <a asp-area="" asp-controller="" asp-action="">Set new password</a></li>
-                <li><a asp-area="" asp-controller="" asp-action="">Edit profile</a></li>
+                <li> <a asp-area="" asp-controller="" asp-action=""><strike>Set new password</strike></a></li>
+                <li><a asp-area="" asp-controller="" asp-action=""><strike>Change Avatar</strike></a></li>
+                <br />
+                <br />
+                <li><a asp-area="" asp-controller="Users" asp-action="Index">All Users</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="Logout">Log out</a></li>
             </ul>
         </div>
         <div class="col-md-9">
-            <h4  style="color: #c0a16b">
-                <b>You don't have any activity yet!</b>
-                <br />
-                <br />
-                <img src="../images/no-activities.jpg" />
-            </h4>
+            <h4 style="color: #42f4b3"></h4>
         </div>
     </div>
 </div>

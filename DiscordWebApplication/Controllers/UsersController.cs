@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DAL.Database;
 using UserService.Domain.Models;
+using DiscordWebApplication.Extensions;
+using PagedList.Core;
 
 namespace DiscordWebApplication.Controllers
 {
@@ -14,20 +13,48 @@ namespace DiscordWebApplication.Controllers
     {
         private readonly AppDbContext _context;
 
+        private string _userId;
+        private string _username;
+        private Role _role;
+
         public UsersController(AppDbContext context)
         {
             _context = context;
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
+            int pageNumber = page ?? 1;
+            int pageMaxNumber = 5;
+
+            _userId = HttpContext.Session.GetObjectFromJson<string>("UserId");
+            if (_userId == null)
+            {
+                ViewBag["NoPermissions"] = "Log in first.";
+                return RedirectToAction("Login", "Account");
+            }
+            _username = HttpContext.Session.GetObjectFromJson<string>("UserName");
+            _role = HttpContext.Session.GetObjectFromJson<Role>("Role");
+            ViewData["UserId"] = _userId;
+            ViewData["UserName"] = _username;
+            ViewData["Role"] = _role;
+
+            //return View((await _context.Users.ToListAsync()).ToPagedList(pageNumber, pageMaxNumber));
             return View(await _context.Users.ToListAsync());
         }
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(string id)
         {
+            _userId = HttpContext.Session.GetObjectFromJson<string>("UserId");
+            if (_userId == null) return RedirectToAction("AccessDenied", "Home");
+            _username = HttpContext.Session.GetObjectFromJson<string>("UserName");
+            _role = HttpContext.Session.GetObjectFromJson<Role>("Role");
+            ViewData["UserId"] = _userId;
+            ViewData["UserName"] = _username;
+            ViewData["Role"] = _role;
+
             if (id == null)
             {
                 return NotFound();
@@ -62,6 +89,15 @@ namespace DiscordWebApplication.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            _userId = HttpContext.Session.GetObjectFromJson<string>("UserId");
+            if (_userId == null) return RedirectToAction("AccessDenied", "Home");
+            _username = HttpContext.Session.GetObjectFromJson<string>("UserName");
+            _role = HttpContext.Session.GetObjectFromJson<Role>("Role");
+            ViewData["UserId"] = _userId;
+            ViewData["UserName"] = _username;
+            ViewData["Role"] = _role;
+
             return View(user);
         }
 
@@ -78,6 +114,15 @@ namespace DiscordWebApplication.Controllers
             {
                 return NotFound();
             }
+
+            _userId = HttpContext.Session.GetObjectFromJson<string>("UserId");
+            if (_userId == null) return RedirectToAction("AccessDenied", "Home");
+            _username = HttpContext.Session.GetObjectFromJson<string>("UserName");
+            _role = HttpContext.Session.GetObjectFromJson<Role>("Role");
+            ViewData["UserId"] = _userId;
+            ViewData["UserName"] = _username;
+            ViewData["Role"] = _role;
+
             return View(user);
         }
 
@@ -113,6 +158,15 @@ namespace DiscordWebApplication.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            _userId = HttpContext.Session.GetObjectFromJson<string>("UserId");
+            if (_userId == null) return RedirectToAction("AccessDenied", "Home");
+            _username = HttpContext.Session.GetObjectFromJson<string>("UserName");
+            _role = HttpContext.Session.GetObjectFromJson<Role>("Role");
+            ViewData["UserId"] = _userId;
+            ViewData["UserName"] = _username;
+            ViewData["Role"] = _role;
+
             return View(user);
         }
 
@@ -130,6 +184,14 @@ namespace DiscordWebApplication.Controllers
             {
                 return NotFound();
             }
+
+            _userId = HttpContext.Session.GetObjectFromJson<string>("UserId");
+            if (_userId == null) return RedirectToAction("AccessDenied", "Home");
+            _username = HttpContext.Session.GetObjectFromJson<string>("UserName");
+            _role = HttpContext.Session.GetObjectFromJson<Role>("Role");
+            ViewData["UserId"] = _userId;
+            ViewData["UserName"] = _username;
+            ViewData["Role"] = _role;
 
             return View(user);
         }

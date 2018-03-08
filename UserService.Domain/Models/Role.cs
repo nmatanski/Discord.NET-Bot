@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace UserService.Domain.Models
 {
@@ -16,7 +13,7 @@ namespace UserService.Domain.Models
         SuperUser = 2,
         [EnumMember(Value = "Moderator")]
         Moderator = 3,
-        [EnumMember(Value = "Admin")]
-        Admin = 4
+        [EnumMember(Value = "Administrator")]
+        Administrator = 4
     }
 }

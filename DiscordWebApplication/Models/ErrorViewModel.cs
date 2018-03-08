@@ -1,5 +1,3 @@
-using System;
-
 namespace DiscordWebApplication.Models
 {
     public class ErrorViewModel
